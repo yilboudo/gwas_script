@@ -23,11 +23,6 @@ if len(sys.argv) < 4:
     print usage
     exit(1)
 
-f1 = open(sys.argv[1], 'r')
-f2 = open(sys.argv[2], 'w')
-gs = sys.argv[3]
-snp = sys.argv[4]
-
 #Check that a readable file is provided
 try:
     open(sys.argv[1], 'r')
@@ -75,13 +70,13 @@ snp = sys.argv[4]
 def cluster(file1,file2, gene_symbol, variants):
     header = next(file1)
     colunmnames = header.strip('\n').split("\t")
-    #Make sure entered columnnames is present
+    #Make sure entered columnname is present
     try:
         colunmnames.index(gene_symbol)
     except ValueError:
         print "Error: Columname is absent. Check your Spelling!"
         exit(1)
-    #Make sure entered columnnames is present
+    #Make sure entered columnname is present
     try:
         colunmnames.index(variants)    
     except ValueError:
