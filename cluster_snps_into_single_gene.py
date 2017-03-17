@@ -18,22 +18,76 @@ cluster_snps_into_single_gene.py [INPUT_FILE] [OUTPUT_FILE] [GENE_NAME_HEADER] [
 
 clusters snps mapping to same gene."""
 
+#Check four arguments are provided
 if len(sys.argv) < 4:
     print usage
     exit(1)
-
 
 f1 = open(sys.argv[1], 'r')
 f2 = open(sys.argv[2], 'w')
 gs = sys.argv[3]
 snp = sys.argv[4]
 
+#Check that a readable file is provided
+try:
+    open(sys.argv[1], 'r')
+except IOError:
+    print "Error: " + sys.argv[1] + " does not exist, or is not readable!"
+    exit(1)
+
+#input file
+f1 = open(sys.argv[1], 'r')
+
+
+#Check that a readable file is provided
+try:
+    str(sys.argv[2])
+except IOError:
+    print "Error: " + sys.argv[2] + " does not exist, or is not readable!"
+    exit(1)
+
+#Define to output file
+f2 = open(sys.argv[2], 'w')
+
+#Check that gene symbol header name is a string
+try:
+    str(sys.argv[3])
+    
+except ValueError:
+    print "Error: string  is needed!"
+    exit(1)
+
+#Define gene symbol header name
+gs = sys.argv[3]
+
+
+#Check that snp header name is a string
+try:
+    str(sys.argv[4]) 
+except ValueError:
+    print "Error: string  is needed!"
+    exit(1)
+
+#Define snp header name
+snp = sys.argv[4]
+
 
 def cluster(file1,file2, gene_symbol, variants):
     header = next(file1)
     colunmnames = header.strip('\n').split("\t")
-    print colunmnames
-
+    #Make sure entered columnnames is present
+    try:
+        colunmnames.index(gene_symbol)
+    except ValueError:
+        print "Error: Columname is absent. Check your Spelling!"
+        exit(1)
+    #Make sure entered columnnames is present
+    try:
+        colunmnames.index(variants)    
+    except ValueError:
+        print "Error: Columname is absent. Check your Spelling!"
+        exit(1)
+    
     clusters = {}
     for line in file1:
         sep = line.index('\t')
