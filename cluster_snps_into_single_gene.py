@@ -89,10 +89,10 @@ def cluster(file1,file2, gene_symbol, variants):
         head = line.strip('\n').split('\t')[colunmnames.index(gene_symbol)]
         tail = line.strip('\n').split('\t')[colunmnames.index(variants)] 
         if head in clusters:
-            clusters[head] +=  " "+"\t"+ tail
+            clusters[head] +=  "\t"+"\t"+ tail
         else:
             clusters[head] = tail
-    file2.write( "".join(([head + " " + tail+'\n' for head, tail in clusters.iteritems()])))
+    file2.write( "".join(([head + "\t" + tail+'\n' for head, tail in clusters.iteritems()])))
     file2.close()
 
 
